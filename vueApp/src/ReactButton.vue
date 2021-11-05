@@ -9,11 +9,8 @@ import { ref, onMounted, onBeforeUnmount, onUpdated } from "vue";
 import ReactDOM from "react-dom";
 import React from "react";
 
-const firstLoad = new Promise((resolve) => setTimeout(resolve, 1000));
-
 async function fetchButton() {
-  await firstLoad;
-  return (await import("reactApp/Button")).default;
+  return (await import("reactApp/src/Button")).default;
 }
 
 export default {

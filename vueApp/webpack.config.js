@@ -13,7 +13,7 @@ module.exports = (env = {}) => ({
     minimize: false,
   },
   target: "web",
-  entry: path.resolve(__dirname, "./src/main.js"),
+  entry: path.resolve(__dirname, "./src/bootstrap.js"),
   output: {
     publicPath: "auto",
   },
@@ -21,7 +21,8 @@ module.exports = (env = {}) => ({
     extensions: [".vue", ".jsx", ".js", ".json"],
     alias: {
       vue: "vue/dist/vue.esm-bundler.js",
-      '@': path.resolve(__dirname, 'src')
+      '@': path.resolve(__dirname, 'src'),
+      'reactApp': path.resolve(__dirname, '../reactApp'),
     },
   },
   experiments: {
@@ -65,9 +66,9 @@ module.exports = (env = {}) => ({
       filename: "[name].css",
     }),
     new ModuleFederationPlugin({
-      name: "vueApp",
+      name: "vueapp",
       remotes: {
-        reactApp: "reactApp@http://localhost:3002/remoteEntry.js",
+        reactapp: "reactapp@http://localhost:3002/remoteEntry.js",
       },
       shared: {
         ...deps,
@@ -101,4 +102,4 @@ module.exports = (env = {}) => ({
         "X-Requested-With, content-type, Authorization",
     },
   },
-});
+})
