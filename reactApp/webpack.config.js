@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { VueLoaderPlugin } = require("vue-loader");
 const { ModuleFederationPlugin } = require("webpack").container;
 const deps = require("./package.json").dependencies;
 const path = require("path");
@@ -10,7 +11,7 @@ module.exports = {
     static: {
       directory: path.join(__dirname, "dist"),
     },
-    port: 3002,
+    port: 3000,
   },
   output: {
     publicPath: "auto",
@@ -25,24 +26,25 @@ module.exports = {
           presets: ["@babel/preset-react"],
         },
       },
+      {
+        test: /\.vue$/,
+        use: "vue-loader",
+      },
     ],
   },
   plugins: [
     new ModuleFederationPlugin({
       name: "reactApp",
-      filename: "remoteEntry.js",
-      exposes: {
-        "./Button": "./src/Button",
+      remotes: {
+        vueapp: "vueapp@http://localhost:3001/remoteEntry.js",
       },
       shared: {
         ...deps,
-        react: {
+        vue: {
           singleton: true,
-          requiredVersion: deps.react,
         },
-        "react-dom": {
+        "vue-loader": {
           singleton: true,
-          requiredVersion: deps["react-dom"],
         },
       },
     }),

@@ -1,5 +1,5 @@
 <template>
-    <h1>React in Vue</h1>
+    <h1>Vue app</h1>
     <div class="app">
       <layout />
     </div>

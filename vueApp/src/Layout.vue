@@ -22,9 +22,8 @@
         </div>
       </div>
       <div>
-        <h2>React Button - loaded via Module Federation</h2>
         <div class="remote-component">
-          <react-button v-if="showButton" :text="buttonText" :onClick="incrementCount" />
+          <custom-button v-if="showButton" :text="buttonText" :onClick="incrementCount" />
         </div>
       </div>
     </div>
@@ -32,14 +31,15 @@
 
 <script>
 import { ref } from "vue";
-import ReactButton from "./ReactButton.vue";
+// import ReactButton from "./ReactButton.vue";
+import CustomButton from './CustomButton.vue'
 
 export default {
   name: "Layout",
-  components: { ReactButton },
+  components: { CustomButton },
   setup() {
     const showButton = ref(true);
-    const buttonText = ref("React button");
+    const buttonText = ref("Vue button");
     const clickedCount = ref(0);
     const incrementCount = () => (clickedCount.value += 1);
 

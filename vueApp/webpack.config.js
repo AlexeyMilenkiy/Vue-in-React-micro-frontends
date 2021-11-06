@@ -67,18 +67,21 @@ module.exports = (env = {}) => ({
     }),
     new ModuleFederationPlugin({
       name: "vueapp",
-      remotes: {
-        reactapp: "reactapp@http://localhost:3002/remoteEntry.js",
+      filename: "remoteEntry.js",
+      library: {
+        type: 'var',
+        name: 'vueapp',
+      },
+      exposes: {
+        './CustomButton': './src/CustomButton.vue'
       },
       shared: {
         ...deps,
-        react: {
+        vue: {
           singleton: true,
-          requiredVersion: deps.react,
         },
-        "react-dom": {
+        "vue-loader": {
           singleton: true,
-          requiredVersion: deps["react-dom"],
         },
       },
     }),

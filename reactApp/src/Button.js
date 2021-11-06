@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback } from "react";
 
-export default ({ text = "Home Button", onClick }) => {
+export default ({ text = "React Button", onClick }) => {
   const onClickHandler = useCallback(() => {
     console.log(`Button.js: "${text}" clicked!`);
     onClick?.();
