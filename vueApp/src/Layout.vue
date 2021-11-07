@@ -1,38 +1,35 @@
 <template>
   <div class="layout-app">
     <h1>Remote - Vue App</h1>
-    <div>
-      <strong>Vue count: {{ vueCount }}</strong>
-    </div>
-    <div>
-      <strong>React count: {{ reactCount }}</strong>
-    </div>
-    <div>
-      <label>
-        <span>Show button:</span>
-        <input v-model="showButton" type="checkbox" />
-      </label>
-    </div>
-    <div>
-      <label>
-        <span>Button text:</span>
-        <input v-model="buttonText" type="text" />
-      </label>
-    </div>
+    <strong>Vue count: {{ vueCount }}</strong>
+    <strong>React count: {{ reactCount }}</strong>
+    <label>
+      <span>Show button:</span>
+      <input v-model="showButton" type="checkbox" />
+    </label>
+    <label>
+      <span>Button increment text: </span>
+      <input v-model="incrementText" type="text" />
+    </label>
+    <label>
+      <span>Button decrement text: </span>
+      <input v-model="decrementText" type="text" />
+    </label>
   </div>
-  <div>
-    <div class="remote-component">
-      <vue-button
-        v-if="showButton"
-        :text="buttonText"
-        :onClick="incrementCount"
-      />
-    </div>
-  </div>
+  <vue-button
+    v-if="showButton"
+    :text="incrementText"
+    @click="changeCount('increase')"
+  />
+  <vue-button
+    v-if="showButton"
+    :text="decrementText"
+    @click="changeCount('decrease')"
+  />
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, reactive, toRefs } from "vue";
 import { BroadcastChannel } from "broadcast-channel";
 import { CHANNEL_NAME } from "../../channelName";
 import VueButton from "./Button.vue";
@@ -42,29 +39,41 @@ export default {
   components: { VueButton },
   setup() {
     const channel = new BroadcastChannel(CHANNEL_NAME);
-    const showButton = ref(true);
-    const buttonText = ref("Vue button");
-    const vueCount = ref(0);
-    const reactCount = ref(0);
-    const incrementCount = () => {
-      const count = vueCount.value + 1;
-      vueCount.value = count;
-      channel.postMessage(count);
-    };
+    const templateVars = reactive({
+      vueCount: 0,
+      reactCount: 0,
+      showButton: true,
+      incrementText: "Increase Vue count",
+      decrementText: "Decrease Vue count",
+    });
+
+    const templateFuncs = reactive({
+      changeCount: (action) => {
+        const count =
+          action === "increase"
+            ? templateVars.vueCount + 1
+            : templateVars.vueCount - 1;
+        templateVars.vueCount = count;
+        channel.postMessage(count);
+      },
+    });
 
     channel.onmessage = (msg) => {
-      reactCount.value = msg;
+      templateVars.reactCount = msg;
     };
 
-    return { showButton, buttonText, vueCount, incrementCount, reactCount };
+    return {
+      ...toRefs(templateFuncs),
+      ...toRefs(templateVars),
+    };
   },
 };
 </script>
 
 <style scoped>
 .layout-app {
-  font-family: "Open Sans", Inter, Roboto, Oxygen, "Fira Sans", "Helvetica Neue",
-    sans-serif;
+  display: flex;
+  flex-direction: column;
 }
 
 .layout-app > * {

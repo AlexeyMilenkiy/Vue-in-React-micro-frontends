@@ -37,8 +37,14 @@ const App = () => {
           <strong>React count: {reactCount}</strong>
         </span>
         <ReactButton onClick={reset} text="React button - reset" />
-        <VueButton text="Vue button - increase" onClick={increase} />
-        <VueButton text="Vue button - decrease" onClick={decrease} />
+        <VueButton
+          text="Vue button - increase React count"
+          onClick={increase}
+        />
+        <VueButton
+          text="Vue button - decrease React count"
+          onClick={decrease}
+        />
       </div>
       <VueLayout />
     </div>
