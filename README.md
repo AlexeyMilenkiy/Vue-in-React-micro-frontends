@@ -26,4 +26,7 @@ This will build and serve both `home` and `layout` on ports `3000` and `3001` re
 - Host (React app): [localhost:3000](http://localhost:3000/)
 - Remote (Vue app): [localhost:3001](http://localhost:3001/)
 
+---
+
+## Demo
 ![](demo.gif)
