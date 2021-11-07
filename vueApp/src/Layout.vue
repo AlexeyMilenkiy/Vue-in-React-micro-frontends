@@ -31,7 +31,6 @@
 
 <script>
 import { ref } from "vue";
-// import ReactButton from "./ReactButton.vue";
 import VueButton from './Button.vue'
 
 export default {
