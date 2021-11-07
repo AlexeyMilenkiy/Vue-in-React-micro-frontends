@@ -13,5 +13,9 @@ export default ({ text = "React Button", onClick }) => {
 
   console.log("Button.js: rendered.");
 
-  return <button onClick={onClickHandler}>{text}</button>;
+  return (
+    <button className="react-button" onClick={onClickHandler}>
+      {text}
+    </button>
+  );
 };

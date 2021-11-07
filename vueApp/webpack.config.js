@@ -73,7 +73,8 @@ module.exports = (env = {}) => ({
         name: 'vueapp',
       },
       exposes: {
-        './Button': './src/Button.vue'
+        './Button': './src/Button.vue',
+        './Layout': './src/Layout.vue'
       },
       shared: {
         ...deps,

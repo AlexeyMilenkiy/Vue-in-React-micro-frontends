@@ -20,6 +20,8 @@
   },
   "dependencies": {
     "broadcast-channel": "^4.5.0",
+    "css-loader": "^6.5.1",
+    "mini-css-extract-plugin": "^2.4.4",
     "prettier": "^2.4.1",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",

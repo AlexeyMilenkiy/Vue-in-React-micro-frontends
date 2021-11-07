@@ -1,0 +1,25 @@
+.container {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  justify-content: space-around;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+.mf-app {
+  display: flex;
+  flex-direction: column;
+}
+
+.mf-app > * {
+  margin-bottom: 10px;
+}
+
+.react-button {
+  background-color: #61dafb;
+  color: #000000;
+  padding: 10px 25px;
+  white-space: nowrap;
+  border: none;
+}

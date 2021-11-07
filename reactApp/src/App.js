@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import ReactButton from "./Button";
 import VueButton from "./VueButton";
+import VueLayout from "./VueLayout";
+import "./styles.css";
 
 const App = () => {
   const [cnt, setCnt] = useState(0);
@@ -18,13 +20,16 @@ const App = () => {
   };
 
   return (
-    <div>
-      <h1>Basic Host-React app</h1>
-      <h2>Home</h2>
-      <ReactButton onClick={reset} />
-      <div>{cnt}</div>
-      <VueButton text="vue button increase" onClick={increase} />
-      <VueButton text="vue button decrease" onClick={decrease} />
+    <div className="container">
+      <div className="mf-app">
+        <h1>Host-React app</h1>
+        <span>Times button clicked:</span>
+        <span>Count: {cnt}</span>
+        <ReactButton onClick={reset} text="React button - reset" />
+        <VueButton text="Vue button - increase" onClick={increase} />
+        <VueButton text="Vue button - decrease" onClick={decrease} />
+      </div>
+      <VueLayout />
     </div>
   );
 };
