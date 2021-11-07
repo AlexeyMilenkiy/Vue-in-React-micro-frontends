@@ -23,7 +23,7 @@
       </div>
       <div>
         <div class="remote-component">
-          <custom-button v-if="showButton" :text="buttonText" :onClick="incrementCount" />
+          <vue-button v-if="showButton" :text="buttonText" :onClick="incrementCount" />
         </div>
       </div>
     </div>
@@ -32,11 +32,11 @@
 <script>
 import { ref } from "vue";
 // import ReactButton from "./ReactButton.vue";
-import CustomButton from './CustomButton.vue'
+import VueButton from './Button.vue'
 
 export default {
   name: "Layout",
-  components: { CustomButton },
+  components: { VueButton },
   setup() {
     const showButton = ref(true);
     const buttonText = ref("Vue button");

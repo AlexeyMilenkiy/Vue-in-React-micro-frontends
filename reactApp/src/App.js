@@ -23,7 +23,8 @@ const App = () => {
       <h2>Home</h2>
       <ReactButton onClick={reset} />
       <div>{cnt}</div>
-      <VueButton text="custom text" onClick={increase} />
+      <VueButton text="vue button increase" onClick={increase} />
+      <VueButton text="vue button decrease" onClick={decrease} />
     </div>
   );
 };

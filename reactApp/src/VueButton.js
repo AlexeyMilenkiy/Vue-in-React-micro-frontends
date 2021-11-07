@@ -1,18 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { createApp } from "vue";
 
-const RemoteButton = async () => (await import("vueapp/CustomButton")).default;
+const RemoteButton = async () => (await import("vueapp/Button")).default;
 
 const VueButton = (props) => {
+  const container = useRef(null);
   useEffect(() => {
     RemoteButton()
-      .then((component) => createApp(component, props).mount("#vue-container"))
+      .then(
+        (component) =>
+          container.current &&
+          createApp(component, props).mount(container.current)
+      )
       .catch((error) => {
         console.log("error :>> ", error);
       });
   }, [RemoteButton]);
 
-  return <div id="vue-container" />;
+  return <div ref={container} />;
 };
 
 export default VueButton;
