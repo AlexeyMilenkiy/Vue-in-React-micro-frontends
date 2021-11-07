@@ -1,30 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { BroadcastChannel } from "broadcast-channel";
+import { CHANNEL_NAME } from "../../channelName";
 import ReactButton from "./Button";
 import VueButton from "./VueButton";
 import VueLayout from "./VueLayout";
 import "./styles.css";
 
+const channel = new BroadcastChannel(CHANNEL_NAME);
+
 const App = () => {
-  const [cnt, setCnt] = useState(0);
+  const [reactCount, setReactCount] = useState(0);
+  const [vueCount, setVueCount] = useState(0);
+
+  channel.onmessage = (msg) => {
+    setVueCount(msg);
+  };
 
   const reset = () => setCnt(0);
 
-  const increase = () => {
-    console.log('I"M CALLBACK FROM REACT :>> ');
-    setCnt((prev) => prev + 1);
-  };
+  const increase = () => setReactCount((prev) => prev + 1);
 
-  const decrease = () => {
-    console.log('I"M CALLBACK FROM REACT :>> ');
-    setCnt((prev) => prev - 1);
-  };
+  const decrease = () => setReactCount((prev) => prev - 1);
+
+  useEffect(() => {
+    channel.postMessage(reactCount);
+  }, [reactCount]);
 
   return (
     <div className="container">
       <div className="mf-app">
         <h1>Host-React app</h1>
-        <span>Times button clicked:</span>
-        <span>Count: {cnt}</span>
+        <span>
+          <strong>Vue count: {vueCount}</strong>
+        </span>
+        <span>
+          <strong>React count: {reactCount}</strong>
+        </span>
         <ReactButton onClick={reset} text="React button - reset" />
         <VueButton text="Vue button - increase" onClick={increase} />
         <VueButton text="Vue button - decrease" onClick={decrease} />
