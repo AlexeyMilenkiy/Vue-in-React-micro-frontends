@@ -16,7 +16,7 @@ const App = () => {
     setVueCount(msg);
   };
 
-  const reset = () => setCnt(0);
+  const reset = () => setReactCount(0);
 
   const increase = () => setReactCount((prev) => prev + 1);
 
